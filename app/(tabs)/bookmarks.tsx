@@ -1,29 +1,43 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { Collapsible } from '@/components/ui/collapsible';
-import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { Appearance, KeyboardAvoidingView, ScrollView, StyleSheet, Switch, useColorScheme, } from 'react-native';
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function TabTwoScreen() {
+export default function BookmarkScreen() {
+      const colorScheme = useColorScheme();
   return (
-      <ThemedView style={styles.titleContainer}>
-        
-      </ThemedView>
+    <ThemedView style={ styles.container }>
+      <KeyboardAvoidingView>
+        <SafeAreaView>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <Switch value={colorScheme === 'dark'}onChange={() => {
+                Appearance.setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')}} />
+            <ScrollView>
+              
+            </ScrollView>
+          </ThemeProvider>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "center",
   },
   titleContainer: {
+    display: "flex",
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: "center",
     gap: 8,
+  },
+  switchButton: {
+    display: "flex",
+    alignSelf: "flex-start",
   },
 });
