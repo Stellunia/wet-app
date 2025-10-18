@@ -1,9 +1,9 @@
 import { ThemedView } from '@/components/themed-view';
-import { KeyboardAvoidingView, StyleSheet, Text, ScrollView, useColorScheme, } from 'react-native';
-import { SafeAreaView } from "react-native-safe-area-context";
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { Appearance, KeyboardAvoidingView, ScrollView, StyleSheet, Switch, useColorScheme, } from 'react-native';
+import { SafeAreaView } from "react-native-safe-area-context";
 //import  WeatherCardDisplay from "@/components/WeatherCardDisplay";
-import { Searchbar } from "../../components/SearchBar";
+import { SearchBar } from "../../components/SearchBar";
 
 const CAPITALS = ['London', 'Tokyo', 'New York'];
 
@@ -16,8 +16,10 @@ export default function HomeScreen() {
     <ThemedView style={ styles.container }>
       <KeyboardAvoidingView>
         <SafeAreaView>
-          <ThemeProvider value={colorScheme=== 'dark' ? DarkTheme : DefaultTheme}>
-            <SearchBar onAddBookmark={addBookmark}/>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <SearchBar />
+            <Switch value={colorScheme === 'dark'} style={styles.switchButton} onChange={() => {
+                Appearance.setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')}} />
             <ScrollView>
             </ScrollView>
 
@@ -31,8 +33,9 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "center",
   },
   titleContainer: {
     display: "flex",
@@ -46,5 +49,9 @@ const styles = StyleSheet.create({
   },
   lightContainer: {
     backgroundColor: "#fff"
+  },
+  switchButton: {
+    display: "flex",
+    alignSelf: "flex-start",
   },
 });
