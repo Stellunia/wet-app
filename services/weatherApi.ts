@@ -1,5 +1,5 @@
 // services/weatherApi.ts
-const apiKey = "e230033e2442d0356b3a77f00ade8c8e";
+const apiKey = "";
 const city = "<CITY_NAME>";
 const baseUrl = "https://api.openweathermap.org/data/2.5";
 const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
