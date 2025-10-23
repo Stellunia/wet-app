@@ -3,6 +3,8 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { Appearance, KeyboardAvoidingView, ScrollView, StyleSheet, Switch, useColorScheme, } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 
+type Props = {}
+
 export default function BookmarkScreen() {
       const colorScheme = useColorScheme();
   return (
@@ -10,8 +12,6 @@ export default function BookmarkScreen() {
       <KeyboardAvoidingView>
         <SafeAreaView>
           <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            <Switch value={colorScheme === 'dark'}onChange={() => {
-                Appearance.setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')}} />
             <ScrollView>
               
             </ScrollView>

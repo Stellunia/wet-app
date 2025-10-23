@@ -1,9 +1,10 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Book, Cat, Home } from "lucide-react-native";
+import { Appearance, Switch } from 'react-native';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -12,22 +13,34 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <Home size={28} color={color} />,
         }}
       />
       <Tabs.Screen
         name="bookmarks"
         options={{
           title: 'Bookmarks',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="bookmark" color={color} />,
+          tabBarIcon: ({ color }) => <Book size={28} color={color} />,
         }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ color }) => <Cat size={28} color={color} />,
+           headerRight:headerRight }}
       />
     </Tabs>
   );
 }
+
+const headerRight = () => {
+        const colorScheme = useColorScheme();
+
+        return (<Switch value={colorScheme === 'dark'} onChange={() => {
+          Appearance.setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')}} />)}

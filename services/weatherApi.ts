@@ -1,13 +1,14 @@
 // services/weatherApi.ts
-const apiKey = "";
+//import { OPENWEATHER_API_KEY } from "@env";
+
 const city = "<CITY_NAME>";
 const baseUrl = "https://api.openweathermap.org/data/2.5";
-const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+//const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+//const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
 const geoUrl = "https://api.openweathermap.org/geo/1.0"
 
-/*  function getApiKey(): string {
-  const apiKey: string = process.env.OPENWEATHER_API_KEY;
+ function getApiKey(): string {
+  const apiKey = process.env.EXPO_PUBLIC_API_KEY;
   console.log(apiKey);
   if (!apiKey) {
     throw new Error(
@@ -15,7 +16,7 @@ const geoUrl = "https://api.openweathermap.org/geo/1.0"
     );
   }
   return apiKey;
-}  */
+} 
 
 
 export interface WeatherData {
@@ -32,7 +33,9 @@ export interface WeatherData {
   }>;
   sys: {
     country: string;
+    id: number;
   };
+  timezone: number,
 }
 
 export interface searchResult {
@@ -41,11 +44,12 @@ export interface searchResult {
   state?: string;
   lat: number;
   lon: number;
+  timezone: number;
 }
 
 export const searchWeather = async (city: string): Promise<WeatherData> => {
   const response = await fetch(
-    `${baseUrl}/weather?q=${city}&appid=${apiKey}&units=metric`
+    `${baseUrl}/weather?q=${city}&appid=${getApiKey()}&units=metric`
   )
   if (!response.ok) {
     throw new Error("Location not found.");
@@ -55,7 +59,7 @@ export const searchWeather = async (city: string): Promise<WeatherData> => {
 
 export const searchLocations = async (query: string): Promise<searchResult[]> => {
   const response = await fetch(
-    `${geoUrl}/direct?q=${query}&limit=5&appid=${apiKey}`
+    `${geoUrl}/direct?q=${query}&limit=5&appid=${getApiKey()}`
   )
   if (!response.ok) {
     throw new Error("Location not found.");
@@ -65,7 +69,7 @@ export const searchLocations = async (query: string): Promise<searchResult[]> =>
 
 export const searchWeatherByCoords = async (lat: number, lon: number): Promise<WeatherData> => {
   const response = await fetch(
-    `${baseUrl}/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+    `${baseUrl}/weather?lat=${lat}&lon=${lon}&appid=${getApiKey()}&units=metric`
   )
   if (!response.ok) {
     throw new Error("Location not found.");
