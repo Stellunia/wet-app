@@ -33,7 +33,7 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ color }) => <Cat size={28} color={color} />,
-           headerRight:headerRight }}
+        }}
       />
     </Tabs>
   );

@@ -1,6 +1,6 @@
 import { ThemedView } from '@/components/themed-view';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { KeyboardAvoidingView, ScrollView, StyleSheet, useColorScheme } from 'react-native';
+import { Appearance, KeyboardAvoidingView, ScrollView, StyleSheet, Switch, Text, useColorScheme, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = {}
@@ -13,7 +13,15 @@ export default function SettingsScreen() {
         <SafeAreaView>
           <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <ScrollView>
-              
+              <View style={styles.settingsContainer}>
+                <Text style={styles.settingsSwitchText}>Change theme: Light/Dark:</Text>
+                <Switch value={colorScheme === 'dark'} onChange={() => {
+                    Appearance.setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')}}/>
+              </View>
+              <View style={styles.settingsContainer}>
+                <Text style={styles.settingsSwitchText}>Change Metric/Imperial:</Text>
+                <Switch  onChange={() => {}}/>
+              </View>
             </ScrollView>
           </ThemeProvider>
         </SafeAreaView>
@@ -26,18 +34,33 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "center",
+    alignItems: "center",
   },
-  titleContainer: {
-    display: "flex",
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: "center",
-    gap: 8,
+  darkContainer: {
+      backgroundColor: "#222"
+  },
+  lightContainer: {
+    backgroundColor: "#fff"
   },
   switchButton: {
-    display: "flex",
-    alignSelf: "flex-start",
+    alignSelf: "center",
   },
+  settingsContainer: {
+    width: "95%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#C68A9E",
+    borderRadius: 20,
+    padding: 10,
+    marginTop: 5,
+    borderWidth: 2,
+    marginLeft: "2%"
+  },
+  settingsSwitchText: {
+    fontSize: 24,
+    alignSelf: "center",
+    justifyContent: "center",
+    elevation: 5
+  }
 });
