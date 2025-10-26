@@ -18,7 +18,7 @@ const geoUrl = "https://api.openweathermap.org/geo/1.0"
   return apiKey;
 } 
 
-
+// yoinks all of these things from the api to handle later
 export interface WeatherData {
   name: string;
   main: {
@@ -38,6 +38,7 @@ export interface WeatherData {
   timezone: number,
 }
 
+// displays these things for the user, I never really got to converting the timezone properly, oh well
 export interface searchResult {
   name: string;
   country: string;
@@ -47,6 +48,7 @@ export interface searchResult {
   timezone: number;
 }
 
+// searches weather by city name
 export const searchWeather = async (city: string): Promise<WeatherData> => {
   const response = await fetch(
     `${baseUrl}/weather?q=${city}&appid=${getApiKey()}&units=metric`
@@ -57,6 +59,7 @@ export const searchWeather = async (city: string): Promise<WeatherData> => {
   return response.json();
 }
 
+// results fetched from search, gets a maximum of 5
 export const searchLocations = async (query: string): Promise<searchResult[]> => {
   const response = await fetch(
     `${geoUrl}/direct?q=${query}&limit=5&appid=${getApiKey()}`
@@ -67,6 +70,7 @@ export const searchLocations = async (query: string): Promise<searchResult[]> =>
   return response.json();
 }
 
+// searches weather by latitude and longitude
 export const searchWeatherByCoords = async (lat: number, lon: number): Promise<WeatherData> => {
   const response = await fetch(
     `${baseUrl}/weather?lat=${lat}&lon=${lon}&appid=${getApiKey()}&units=metric`

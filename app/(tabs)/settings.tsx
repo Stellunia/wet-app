@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = {}
 
+// Settings page, meant to handle switching themes and the celcius/fahrenheit swap, but only handles the theme for now
 export default function SettingsScreen() {
       const colorScheme = useColorScheme();
   return (

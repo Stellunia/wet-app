@@ -5,6 +5,7 @@ export type UIBookmark = {
   bookmarked: string
 }
 
+// my beloathed bookmarks
 export const useBookmarks = () => {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   function isBookmarked(name: string) {

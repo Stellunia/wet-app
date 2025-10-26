@@ -5,8 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 //import  WeatherCardDisplay from "@/components/WeatherCardDisplay";
 import { SearchBar } from "../../components/SearchBar";
 
-const CAPITALS = ['London', 'Tokyo', 'New York'];
 
+//  Home screen where the user can search for the weather in places
 export default function HomeScreen() {
     const colorScheme = useColorScheme();
     //const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;

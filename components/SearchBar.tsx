@@ -11,6 +11,7 @@ export const SearchBar = () => {
 	const [selection, setSelection] = useState<WeatherData | null>(null);
 	const searchQueryPlaceholder = "Enter the name of a city..."
 
+	// handles the search for the different locations and lists them in a list of 5
 	const handleSearch = async (query: string) => {
 		if (!query.trim()) {
 			setResults([])
@@ -20,18 +21,19 @@ export const SearchBar = () => {
 			const searchQuery = await searchLocations(query)
 			setResults(searchQuery)
 		} catch (e) {
-			console.error("There was an error executing the search.")
+			console.error("There was an error executing the search. ", e)
 			setResults([])
 		}
 	}
 
+	// does what it says on the tin, handles the selection and searches for the weather by latitude and longitude
 	const handleSelection = async (selectionName: searchResult) => {
 		try {
 			const query = await searchWeatherByCoords(selectionName.lat, selectionName.lon)
 			setSelection(query)
 			setResults([]);
 		} catch (e) {
-			console.error("Failed to load the weather for this location.", e)
+			console.error("Failed to load the weather for this location. ", e)
 			setResults([])
 		}
 	}
@@ -47,7 +49,7 @@ export const SearchBar = () => {
 					}}
 					placeholder={searchQueryPlaceholder} />
 			</View>
-			{/* Search Results List */}
+			{/* Displays the results that the user has searched for */}
 			{results.length > 0 && (
 				<FlatList
 					data={results}
@@ -66,7 +68,7 @@ export const SearchBar = () => {
 						<Book size={25} color={"pink"} />
 					</TouchableOpacity>*//>
 			)}
-			{/* Selection that appears after clicking one of the results */}
+			{/* Weather card pops up after the user has selected one of the search results */}
 			{selection && (
 				<WeatherCard data={selection}/>
 			)}

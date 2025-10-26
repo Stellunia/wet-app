@@ -1,6 +1,8 @@
 import { useBookmarks } from "@/hooks/useWeatherCards";
 import { WeatherData } from "@/services/weatherApi";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { Cat, CloudDrizzle, CloudFog, CloudLightning, CloudRain, CloudSnow, Cloudy, Sun } from "lucide-react-native";
+import { useState } from "react";
 import { Dimensions, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from "react-native";
 import { ThemedView } from "./themed-view";
 
@@ -14,7 +16,28 @@ export default function WeatherCard({ data }: WeatherCardProps) {
     const colorScheme = useColorScheme();
     const themeContainerStyle = colorScheme === 'light' ? styles.lightThemeOverlap : styles.darkThemeOverlap;
     const {isBookmarked} = useBookmarks();
+/* 	const [bookmark, setBookmark] = useState<boolean>(false);
+
+	const saveBookmark = async(itemId: string) => {
+		await useAsyncStorage.getItem('bookmark').then((token) => {
+			const res = JSON.parse(token);
+			if( res !== null ) {
+				let data = res.find((val: string) => val === itemId);
+				if( data == null ) {
+					res.push(itemId);
+					AsyncStorage.setItem('bookmark', JSON.stringify(res));
+					alert('Location bookmarked!')
+				}
+			} else {
+				let bookmark = [];
+				bookmark.push(itemId);
+				AsyncStorage.setItem('bookmark', JSON.stringify(bookmark));
+				alert('Location bookmarked!')
+			}
+		})
+	} */
     
+		// mmm, weather card that was meant to be used both for selection on the main page and bookmarks, but alas
         return (
         <ThemedView style={styles.dataContainer}>
 					<View style={styles.dataTitleContainer}>
@@ -47,6 +70,7 @@ export default function WeatherCard({ data }: WeatherCardProps) {
         )
 }
 
+// Makes use out of the lucide icons to display the weather that way
 const getWeatherIcon = (weather: string) => {
 	const weatherMap: { [key: string]: any } = {
 		"Clear": Sun,

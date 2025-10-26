@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = {}
 
+// bookmarks tab, didn't get to the point of implementation with this
 export default function BookmarkScreen() {
       const colorScheme = useColorScheme();
   return (
